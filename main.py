@@ -17,6 +17,10 @@ POEM = (
 
 
 def main() -> None:
+    # The gate allows 1-280 Unicode code points, not only whitespace.
+    # Fail loudly here rather than writing an entry the gate would refuse.
+    assert 1 <= len(POEM) <= 280, f"poem is {len(POEM)} code points"
+    assert POEM.strip(), "poem must not be only whitespace"
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
